@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">
-      <div className="flex flex-col p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
+      <div className="flex flex-col p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
         <div className="grid grid-cols-2 gap-2 px-2 mb-8 items-center">
           <button className=" text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-slate-900 hover:bg-blue-900 rounded-2xl p-2 cursor-pointer">Current location</button>
           <div className="flex justify-end">
@@ -35,7 +35,7 @@ export default function Home() {
         </div>
         <button className="mt-10 text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-gray-800 hover:bg-blue-900 rounded-2xl p-2 cursor-pointer">Add city</button>
       </div>
-      <div className="flex flex-col p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
+      <div className="flex flex-col p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
         <h2 className="text-white text-sm sm:text-lg md:text-2xl text-center font-bold mb-6">Sevastopol</h2>
         <div className="flex flex-col p-8 bg-gray-300 shadow-md rounded-2xl text-center">
           <p className="text-5xl text-black font-semibold mb-2">15°C</p>

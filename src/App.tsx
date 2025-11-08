@@ -5,9 +5,9 @@ import Settings from './pages/Settings';
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-linear-to-br from-cyan-100 via-blue-100 to-indigo-100 flex justify-center p-4">
+      <div className="min-h-screen bg-linear-to-br from-cyan-100 via-blue-100 to-indigo-100 flex justify-center p-2 sm:p-4">
         <div className="container mx-auto bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-2xl">
-          <div className="p-6 md:p-10 flex flex-col items-center">
+          <div className="p-2 sm:p-6 md:p-10 flex flex-col items-center">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               Weather forecast
             </h1>
