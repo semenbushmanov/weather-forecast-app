@@ -5,6 +5,14 @@ export default function Settings() {
         <h2 className="text-white text-sm sm:text-lg md:text-2xl text-center font-bold mb-6">Settings</h2>
         <div className="pl-4 sm:pl-20 md:pl-30">
           <label key='showSunset' className="max-w-300 grid grid-cols-2 cursor-pointer items-center">
+            <span className="p-2 text-sm sm:text-lg md:text-2xl text-white mx-2 sm:mx-8">Sunrise</span>
+            <input
+              type="checkbox"
+              checked
+              className="p-2 w-6 h-6 md:w-10 md:h-10 cursor-pointer"
+            />
+          </label>
+          <label key='showSunset' className="max-w-300 grid grid-cols-2 cursor-pointer items-center">
             <span className="p-2 text-sm sm:text-lg md:text-2xl text-white mx-2 sm:mx-8">Sunset</span>
             <input
               type="checkbox"
@@ -14,6 +22,22 @@ export default function Settings() {
           </label>
           <label key='showHumidity' className="max-w-300 grid grid-cols-2 cursor-pointer items-center">
             <span className="p-2 text-sm sm:text-lg md:text-2xl text-white mx-2 sm:mx-8">Humidity</span>
+            <input
+              type="checkbox"
+              checked
+              className="p-2 w-6 h-6 md:w-10 md:h-10 cursor-pointer"
+            />
+          </label>
+          <label key='showHumidity' className="max-w-300 grid grid-cols-2 cursor-pointer items-center">
+            <span className="p-2 text-sm sm:text-lg md:text-2xl text-white mx-2 sm:mx-8">Pressure</span>
+            <input
+              type="checkbox"
+              checked
+              className="p-2 w-6 h-6 md:w-10 md:h-10 cursor-pointer"
+            />
+          </label>
+          <label key='showHumidity' className="max-w-300 grid grid-cols-2 cursor-pointer items-center">
+            <span className="p-2 text-sm sm:text-lg md:text-2xl text-white mx-2 sm:mx-8">Wind Speed</span>
             <input
               type="checkbox"
               checked

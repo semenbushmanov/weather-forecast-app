@@ -39,10 +39,14 @@ export default function Home() {
         <h2 className="text-white text-sm sm:text-lg md:text-2xl text-center font-bold mb-6">Sevastopol</h2>
         <div className="flex flex-col p-8 bg-gray-300 shadow-md rounded-2xl text-center">
           <p className="text-5xl text-black font-semibold mb-2">15°C</p>
+          <p className="text-3xl md:text-4xl text-purple-900 font-semibold mb-2">Sunny</p>      
           <p className="text-1xl text-gray-700 mb-4">sunny and a little bit cloudy</p>
-          <p className="text-sm sm:text-lg md:text-2xl text-gray-900 mb-2">Sunset: 17:30</p>
-          <p className="text-sm sm:text-lg md:text-2xl text-gray-900 mb-2">Humidity: 70% hPa</p>
-          <p className="text-sm sm:text-lg md:text-2xl text-gray-900 mb-2">Feels like: 14°C</p>
+          <p className="text-sm sm:text-lg md:text-2xl text-orange-600 mb-2">Sunrise: 06:25</p>
+          <p className="text-sm sm:text-lg md:text-2xl text-red-600 mb-2">Sunset: 17:30</p>
+          <p className="text-sm sm:text-lg md:text-2xl text-violet-700 mb-2">Humidity: 70%</p>
+          <p className="text-sm sm:text-lg md:text-2xl text-violet-700 mb-2">Pressure: 1021 hPa</p>
+          <p className="text-sm sm:text-lg md:text-2xl text-violet-700 mb-2">Wind speed: 4.09 m/s</p>
+          <p className="text-sm sm:text-lg md:text-2xl text-green-700 mb-2">Feels like: 14°C</p>
         </div>
       </div>
     </div>      
