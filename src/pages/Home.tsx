@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { type WeatherData, getMockWeatherByCoordinates } from "../services/getWeather";
 import WeatherCard from "../components/WeatherCard";
 import CitiesBlock from "../components/CitiesBlock";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Home() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -28,7 +29,7 @@ export default function Home() {
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
       <CitiesBlock currentLocation="Sevastopol" />
-      {loading && <p>Loading...</p>}
+      {loading && <LoadingSpinner />}
       {error && <p>{error}</p>}
       {weather && <WeatherCard data={weather} />}
     </div>

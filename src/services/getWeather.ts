@@ -59,6 +59,6 @@ export function getMockWeatherByCoordinates(lat: number, lon: number): Promise<W
           message: 'Not Found'
         });
       }
-    }, 500);
+    }, 2500);
   });
 }
