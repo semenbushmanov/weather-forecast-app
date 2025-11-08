@@ -1,8 +1,26 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { useState } from "react";
 import Home from './pages/Home';
 import Settings from './pages/Settings';
+import { type WeatherSettings } from './pages/Settings';
 
 function App() {
+  const [settings, setSettings] = useState<WeatherSettings>({
+    Sunrise: false,
+    Sunset: false,
+    Humidity: false,
+    Pressure: false,
+    Wind: false,
+    Feels: false
+  });
+
+  const handleSettingClick = (key: keyof WeatherSettings) => {
+    setSettings(old => ({
+      ...old,
+      [key]: !old[key]
+    }))
+  }
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-linear-to-br from-cyan-100 via-blue-100 to-indigo-100 flex justify-center p-2 sm:p-4">
@@ -32,8 +50,8 @@ function App() {
               </NavLink>
             </div>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/settings" element={<Settings/>} />
+              <Route path="/" element={<Home settings={settings} />} />
+              <Route path="/settings" element={<Settings settings={settings} onClick={handleSettingClick} />} />
             </Routes>
           </div>
         </div>      
