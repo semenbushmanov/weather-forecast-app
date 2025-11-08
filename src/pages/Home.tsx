@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation="Sevastopol" cities={['Moscow', 'Amsterdam', 'Paris', 'London']} />
+      <CitiesBlock currentLocation="Sevastopol" />
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {weather && <WeatherCard data={weather} />}
