@@ -66,7 +66,7 @@ export function getMockWeatherByCoordinates(lat: number, lon: number): Promise<W
 export function getMockWeatherByCity(city: string): Promise<WeatherData> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (city) {
+      if (city && city != 'Notexistburg') {
         resolve({
             name: city,
             coord: {

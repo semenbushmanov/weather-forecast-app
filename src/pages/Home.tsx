@@ -19,8 +19,9 @@ export default function Home() {
       setError(null);
       const weather = await getMockWeatherByCoordinates(lat, lon);
       setWeather(weather);
-    } catch (err) {
-      setError(`Failed to load weather data: ${String(err)}`);
+    } catch {
+      setError('Failed to load weather data.');
+      setWeather(null);
     } finally {
       setLoading(false);
     }
@@ -84,10 +85,12 @@ export default function Home() {
       setError(null);
       const weather = await getMockWeatherByCity(city);
       setWeather(weather);
-    } catch (err) {
-      setError(`Failed to load weather data in the city: ${String(err)}`);
+    } catch {
+      setError('Failed to load weather data in the city.');
+      setWeather(null);
+      setActiveLocation(city);
     } finally {
-      setLoading(false);
+      setLoading(false);      
     }
   };
 
