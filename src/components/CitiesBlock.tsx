@@ -4,9 +4,10 @@ import { useStorage } from "../storage/useStorage";
 interface CityBlockProps {
   currentLocation: string;
   onCityClick(city: string): Promise<void>;
+  activeLocation: string | null;
 }
 
-export default function CitiesBlock({ currentLocation, onCityClick }: CityBlockProps) {
+export default function CitiesBlock({ currentLocation, onCityClick, activeLocation }: CityBlockProps) {
   const [input, setInput] = useState<string>('');
   const { cities, addCity, deleteCity } = useStorage();
 
@@ -23,7 +24,7 @@ export default function CitiesBlock({ currentLocation, onCityClick }: CityBlockP
   return (
     <div className="flex flex-col p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
       <div className="grid grid-cols-2 gap-2 px-0 sm:px-2 mb-8 items-center">
-        <button className=" text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-slate-900 hover:bg-blue-900 rounded-2xl p-2 cursor-pointer">Current location</button>
+        <button className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === currentLocation ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>Current location</button>
         <div className="flex justify-end">
           <p className="text-white text-sm sm:text-lg md:text-2xl">{currentLocation}</p>
         </div>
@@ -32,7 +33,7 @@ export default function CitiesBlock({ currentLocation, onCityClick }: CityBlockP
       {cities.map(city => {
         return (
           <div key={city} className="grid grid-cols-2 gap-2 px-0 sm:px-2 mb-4 items-center">
-            <button onClick={() => onCityClick(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-blue-900 hover:bg-blue-800 rounded-2xl p-2 cursor-pointer">{city}</button>
+            <button onClick={() => onCityClick(city)} className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === city ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>{city}</button>
             <div className="flex justify-end">
               <button onClick={() => deleteCity(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-sky-900 hover:bg-sky-800 rounded-2xl py-2 px-4 cursor-pointer">Delete</button>
             </div>

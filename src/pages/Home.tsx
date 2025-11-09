@@ -8,6 +8,7 @@ export default function Home() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeLocation, setActiveLocation] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadWeatherData(lat: number, lon: number) {
@@ -23,8 +24,14 @@ export default function Home() {
       }
     };
 
-    loadWeatherData(27.34, 35.87);
+    loadWeatherData(27.34, 35.87);  
   }, []);
+
+  useEffect(() => {
+    if (weather) {
+      setActiveLocation(weather.name);
+    }
+  }, [weather]);
 
   async function loadWeatherDataByCity(city: string) {
     try {
@@ -41,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} />
+      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} activeLocation={activeLocation} />
       {loading && <LoadingSpinner />}
       {error && <p className="text-red-500">{error}</p>}
       {weather && !loading && <WeatherCard data={weather} />}
