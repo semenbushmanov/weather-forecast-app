@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { type WeatherData, getMockWeatherByCity, getMockWeatherByCoordinates } from "../services/getWeather";
+import { type WeatherData, getWeather } from "../services/getWeather";
 import WeatherCard from "../components/WeatherCard";
 import CitiesBlock from "../components/CitiesBlock";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -9,18 +9,18 @@ export default function Home() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeLocation, setActiveLocation] = useState<string | null>(null);
   const [userCoordinates, setUserCoordinates] = useState<[number, number] | null>(null);
+  const [activeLocation, setActiveLocation] = useState<string>('...');  
   const [currentLocation, setCurrentLocation] = useState<string>('...');
 
   async function loadWeatherData(lat: number, lon: number) {
     try {
       setLoading(true);
       setError(null);
-      const weather = await getMockWeatherByCoordinates(lat, lon);
+      const weather = await getWeather.byCoordinates(lat, lon);
       setWeather(weather);
-    } catch {
-      setError('Failed to load weather data.');
+    } catch (err) {
+      setError('Failed to load weather data: ' + err);
       setWeather(null);
     } finally {
       setLoading(false);
@@ -42,7 +42,6 @@ export default function Home() {
     } else {
       setError('Please, turn on geolocation and restart application.');
       setWeather(null);
-      setCurrentLocation('...');
       setActiveLocation('...');
     }
   };
@@ -72,21 +71,19 @@ export default function Home() {
   }, [weather]);
 
   useEffect(() => {
-    if (userCoordinates && weather) {
-      if (userCoordinates[0] == weather.coord.lat && userCoordinates[1] == weather.coord.lon) {
-        setCurrentLocation(weather.name);
-      }
+    if (userCoordinates && weather && currentLocation === '...') {
+      setCurrentLocation(weather.name);
     }
-  }, [userCoordinates, weather]);
+  }, [userCoordinates, weather, currentLocation]);
 
   async function loadWeatherDataByCity(city: string) {
     try {
       setLoading(true);
       setError(null);
-      const weather = await getMockWeatherByCity(city);
+      const weather = await getWeather.byCity(city);
       setWeather(weather);
-    } catch {
-      setError('Failed to load weather data in the city.');
+    } catch (err) {
+      setError('Failed to load weather data by city: ' + err);
       setWeather(null);
       setActiveLocation(city);
     } finally {
