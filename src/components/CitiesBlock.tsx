@@ -5,10 +5,11 @@ interface CityBlockProps {
   currentLocation: string;
   activeLocation: string | null;  
   onCurrentLocationClick(lat: number, lon: number): Promise<void>;
-  onCityClick(city: string): Promise<void>;  
+  onCityClick(city: string): Promise<void>;
+  loading: boolean;
 }
 
-export default function CitiesBlock({ currentLocation, activeLocation, onCurrentLocationClick, onCityClick }: CityBlockProps) {
+export default function CitiesBlock({ currentLocation, activeLocation, onCurrentLocationClick, onCityClick, loading }: CityBlockProps) {
   const [input, setInput] = useState<string>('');
   const { cities, addCity, deleteCity } = useStorage();
 
@@ -25,7 +26,7 @@ export default function CitiesBlock({ currentLocation, activeLocation, onCurrent
   return (
     <div className="flex flex-col p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
       <div className="grid grid-cols-2 gap-2 px-0 sm:px-2 mb-8 items-center">
-        <button onClick={() => onCurrentLocationClick(27.34, 35.87)} className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === currentLocation ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>Current location</button>
+        <button disabled={loading} onClick={() => onCurrentLocationClick(27.34, 35.87)} className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === currentLocation ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>Current location</button>
         <div className="flex justify-end">
           <p className="text-white text-sm sm:text-lg md:text-2xl">{currentLocation}</p>
         </div>
@@ -34,22 +35,23 @@ export default function CitiesBlock({ currentLocation, activeLocation, onCurrent
       {cities.map(city => {
         return (
           <div key={city} className="grid grid-cols-2 gap-2 px-0 sm:px-2 mb-4 items-center">
-            <button onClick={() => onCityClick(city)} className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === city ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>{city}</button>
+            <button disabled={loading} onClick={() => onCityClick(city)} className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === city ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>{city}</button>
             <div className="flex justify-end">
-              <button onClick={() => deleteCity(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-sky-900 hover:bg-sky-800 rounded-2xl py-2 px-4 cursor-pointer">Delete</button>
+              <button disabled={loading} onClick={() => deleteCity(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-sky-900 hover:bg-sky-800 rounded-2xl py-2 px-4 cursor-pointer">Delete</button>
             </div>
           </div>
         );
       })}
       <form onSubmit={handleSubmit} className="flex flex-col mt-10 px-0 sm:px-2">
         <input
+          disabled={loading}
           type="text"
           value={input}
           onChange={(event) => setInput(event.target.value)}
           placeholder="Enter city..."
           className="px-4 py-2 text-white bg-gray-600 placeholder-gray-900 border-2 border-gray-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-800"
         />
-        <button type="submit" className="mt-2 text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-gray-800 hover:bg-blue-900 rounded-2xl p-2 cursor-pointer">Add city</button>
+        <button disabled={loading} type="submit" className="mt-2 text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-gray-800 hover:bg-blue-900 rounded-2xl p-2 cursor-pointer">Add city</button>
       </form>
     </div>
   );

@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} onCurrentLocationClick={loadWeatherData} activeLocation={activeLocation} />
+      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} onCurrentLocationClick={loadWeatherData} activeLocation={activeLocation} loading={loading} />
       {loading && <LoadingSpinner />}
       {error && <p className="text-red-500">{error}</p>}
       {weather && !loading && <WeatherCard data={weather} />}
