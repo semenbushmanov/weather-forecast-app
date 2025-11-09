@@ -3,6 +3,7 @@ import { type WeatherData, getMockWeatherByCity, getMockWeatherByCoordinates } f
 import WeatherCard from "../components/WeatherCard";
 import CitiesBlock from "../components/CitiesBlock";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorCard from "../components/ErrorCard";
 
 export default function Home() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -97,7 +98,7 @@ export default function Home() {
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
       <CitiesBlock currentLocation={currentLocation} onCityClick={loadWeatherDataByCity} onCurrentLocationClick={onCurrentLocationClick} activeLocation={activeLocation} loading={loading} />
       {loading && <LoadingSpinner />}
-      {error && <p className="text-red-500 text-center text-2xl">{error}</p>}
+      {error && <ErrorCard message={error} />}
       {weather && !loading && <WeatherCard data={weather} />}
       <p className="text-white text-3xl m 20">{latitude}</p>
       <p className="text-white text-3xl m 20">{longitude}</p>
