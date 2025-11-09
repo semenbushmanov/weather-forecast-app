@@ -91,17 +91,12 @@ export default function Home() {
     }
   };
 
-  const latitude = 'Latitude: ' + (userCoordinates? userCoordinates[0] : 'unavailable');
-  const longitude = 'Longitude: ' + (userCoordinates? userCoordinates[1] : 'unavailable');
-
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
       <CitiesBlock currentLocation={currentLocation} onCityClick={loadWeatherDataByCity} onCurrentLocationClick={onCurrentLocationClick} activeLocation={activeLocation} loading={loading} />
       {loading && <LoadingSpinner />}
       {error && <ErrorCard message={error} />}
       {weather && !loading && <WeatherCard data={weather} />}
-      <p className="text-white text-3xl m 20">{latitude}</p>
-      <p className="text-white text-3xl m 20">{longitude}</p>
     </div>
   );
 };
