@@ -10,7 +10,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
   const [userCoordinates, setUserCoordinates] = useState<[number, number] | null>(null);
-  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<string>('...');
 
   async function loadWeatherData(lat: number, lon: number) {
     try {
@@ -30,6 +30,7 @@ export default function Home() {
   };
 
   function getPositionError() {
+    setLoading(false);
     setError('Please, turn on geolocation and restart application.');
   };
 
@@ -38,6 +39,9 @@ export default function Home() {
       loadWeatherData(userCoordinates[0], userCoordinates[1]);
     } else {
       setError('Please, turn on geolocation and restart application.');
+      setWeather(null);
+      setCurrentLocation('...');
+      setActiveLocation('...');
     }
   };
 
@@ -67,7 +71,9 @@ export default function Home() {
 
   useEffect(() => {
     if (userCoordinates && weather) {
-      setCurrentLocation(weather.name);
+      if (userCoordinates[0] == weather.coord.lat && userCoordinates[1] == weather.coord.lon) {
+        setCurrentLocation(weather.name);
+      }
     }
   }, [userCoordinates, weather]);
 
@@ -89,12 +95,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation={currentLocation || '...'} onCityClick={loadWeatherDataByCity} onCurrentLocationClick={onCurrentLocationClick} activeLocation={activeLocation} loading={loading} />
+      <CitiesBlock currentLocation={currentLocation} onCityClick={loadWeatherDataByCity} onCurrentLocationClick={onCurrentLocationClick} activeLocation={activeLocation} loading={loading} />
       {loading && <LoadingSpinner />}
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-center text-2xl">{error}</p>}
       {weather && !loading && <WeatherCard data={weather} />}
-      {weather && <p className="text-white text-3xl m 20">{latitude}</p>}
-      {weather && <p className="text-white text-3xl m 20">{longitude}</p>}
+      <p className="text-white text-3xl m 20">{latitude}</p>
+      <p className="text-white text-3xl m 20">{longitude}</p>
     </div>
   );
 };
