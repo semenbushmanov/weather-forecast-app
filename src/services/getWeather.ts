@@ -62,3 +62,43 @@ export function getMockWeatherByCoordinates(lat: number, lon: number): Promise<W
     }, 1000);
   });
 };
+
+export function getMockWeatherByCity(city: string): Promise<WeatherData> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (city) {
+        resolve({
+            name: city,
+            coord: {
+              lat: 34.56,
+              lon: 44.07,
+            },
+            main: {
+              temp: 15,
+              humidity: 60,
+              pressure: 1021,
+              feels_like: 14
+            },
+            wind: {
+              speed: 2.02
+            },
+            weather: [
+              {
+                main: 'Sunny',
+                description: 'quite nice'
+              }
+            ],            
+            sys: {
+              sunrise: 1726636384,
+              sunset: 1726680975
+            }
+        });
+      } else {
+        reject({
+          status: 404,
+          message: 'Not Found'
+        });
+      }
+    }, 1000);
+  });
+};

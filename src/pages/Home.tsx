@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { type WeatherData, getMockWeatherByCoordinates } from "../services/getWeather";
+import { type WeatherData, getMockWeatherByCity, getMockWeatherByCoordinates } from "../services/getWeather";
 import WeatherCard from "../components/WeatherCard";
 import CitiesBlock from "../components/CitiesBlock";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -21,17 +21,30 @@ export default function Home() {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     loadWeatherData(27.34, 35.87);
   }, []);
 
+  async function loadWeatherDataByCity(city: string) {
+    try {
+      setLoading(true);
+      setError(null);
+      const weather = await getMockWeatherByCity(city);
+      setWeather(weather);
+    } catch (err) {
+      setError(`Failed to load weather data in the city: ${String(err)}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation="Sevastopol" />
+      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} />
       {loading && <LoadingSpinner />}
-      {error && <p>{error}</p>}
-      {weather && <WeatherCard data={weather} />}
+      {error && <p className="text-red-500">{error}</p>}
+      {weather && !loading && <WeatherCard data={weather} />}
     </div>
   );
 };

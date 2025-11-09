@@ -3,9 +3,10 @@ import { useStorage } from "../storage/useStorage";
 
 interface CityBlockProps {
   currentLocation: string;
+  onCityClick(city: string): Promise<void>;
 }
 
-export default function CitiesBlock({ currentLocation }: CityBlockProps) {
+export default function CitiesBlock({ currentLocation, onCityClick }: CityBlockProps) {
   const [input, setInput] = useState<string>('');
   const { cities, addCity, deleteCity } = useStorage();
 
@@ -31,7 +32,7 @@ export default function CitiesBlock({ currentLocation }: CityBlockProps) {
       {cities.map(city => {
         return (
           <div key={city} className="grid grid-cols-2 gap-2 px-0 sm:px-2 mb-4 items-center">
-            <button className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-blue-900 hover:bg-blue-800 rounded-2xl p-2 cursor-pointer">{city}</button>
+            <button onClick={() => onCityClick(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-blue-900 hover:bg-blue-800 rounded-2xl p-2 cursor-pointer">{city}</button>
             <div className="flex justify-end">
               <button onClick={() => deleteCity(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-sky-900 hover:bg-sky-800 rounded-2xl py-2 px-4 cursor-pointer">Delete</button>
             </div>
