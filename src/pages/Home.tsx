@@ -3,13 +3,8 @@ import { type WeatherData, getMockWeatherByCoordinates } from "../services/getWe
 import WeatherCard from "../components/WeatherCard";
 import CitiesBlock from "../components/CitiesBlock";
 import LoadingSpinner from "../components/LoadingSpinner";
-import type { WeatherSettings } from "./Settings";
 
-interface WeatherSettingsProps {
-  settings: WeatherSettings;
-}
-
-export default function Home({settings}: WeatherSettingsProps) {
+export default function Home() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +31,7 @@ export default function Home({settings}: WeatherSettingsProps) {
       <CitiesBlock currentLocation="Sevastopol" />
       {loading && <LoadingSpinner />}
       {error && <p>{error}</p>}
-      {weather && <WeatherCard data={weather} settings={settings} />}
+      {weather && <WeatherCard data={weather} />}
     </div>
   )
 }

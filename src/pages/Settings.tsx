@@ -1,3 +1,5 @@
+import { useSettingsStorage } from "../storage/useSettingsStorage";
+
 export interface WeatherSettings {
   Sunrise: boolean;
   Sunset: boolean;
@@ -7,14 +9,11 @@ export interface WeatherSettings {
   Feels: boolean;
 }
 
-interface WeatherSettingsProps {
-  settings: WeatherSettings;
-  onClick: (key: keyof WeatherSettings) => void;
-}
-
 const WEATHER_OPTIONS = ['Sunrise', 'Sunset', 'Humidity', 'Pressure', 'Wind', 'Feels'] as const satisfies readonly (keyof WeatherSettings)[];
 
-export default function Settings({ settings, onClick }: WeatherSettingsProps) {
+export default function Settings() {
+  const { settings, handleSettingClick } = useSettingsStorage();
+
   return (
     <div className="w-full rounded-2xl mt-6">
       <div className="flex flex-col items-center p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
@@ -31,7 +30,7 @@ export default function Settings({ settings, onClick }: WeatherSettingsProps) {
                 <input
                   type="checkbox"
                   checked={settings[option]}
-                  onChange={() => onClick(option)}
+                  onChange={() => handleSettingClick(option)}
                   className="p-2 w-6 h-6 md:w-10 md:h-10 cursor-pointer"
                 />
               </label>

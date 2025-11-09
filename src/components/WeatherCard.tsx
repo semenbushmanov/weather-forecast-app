@@ -1,12 +1,13 @@
 import { type WeatherData } from "../services/getWeather";
-import { type WeatherSettings } from "../pages/Settings";
+import { useSettingsStorage } from "../storage/useSettingsStorage";
 
 interface WeatherCardProps {
   data: WeatherData;
-  settings: WeatherSettings;
 }
 
-export default function WeatherCard({ data, settings }: WeatherCardProps) {
+export default function WeatherCard({ data }: WeatherCardProps) {
+  const { settings } = useSettingsStorage();
+
   return (
     <div className="flex flex-col p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
       <h2 className="text-white text-sm sm:text-lg md:text-2xl text-center font-bold mb-6">{data.name}</h2>
