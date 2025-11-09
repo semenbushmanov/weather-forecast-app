@@ -9,6 +9,8 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
+  const [userCoordinates, setUserCoordinates] = useState<[number, number] | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
   async function loadWeatherData(lat: number, lon: number) {
     try {
@@ -23,15 +25,51 @@ export default function Home() {
     }
   };
 
+  function getPositionSuccess(position: GeolocationPosition): void {
+    setUserCoordinates([position.coords.latitude, position.coords.longitude]);
+  };
+
+  function getPositionError() {
+    setError('Please, turn on geolocation and restart application.');
+  };
+
+  function onCurrentLocationClick() {
+    if (userCoordinates) {
+      loadWeatherData(userCoordinates[0], userCoordinates[1]);
+    } else {
+      setError('Please, turn on geolocation and restart application.');
+    }
+  };
+
   useEffect(() => {
-    loadWeatherData(27.34, 35.87);  
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
+      } else {
+        setError("Geolocation is not supported by this browser.");
+      }
+    };
+
+    getLocation();
   }, []);
+
+  useEffect(() => {
+    if (userCoordinates) {
+      loadWeatherData(userCoordinates[0], userCoordinates[1]);
+    }
+  }, [userCoordinates]);
 
   useEffect(() => {
     if (weather) {
       setActiveLocation(weather.name);
     }
   }, [weather]);
+
+  useEffect(() => {
+    if (userCoordinates && weather) {
+      setCurrentLocation(weather.name);
+    }
+  }, [userCoordinates, weather]);
 
   async function loadWeatherDataByCity(city: string) {
     try {
@@ -46,12 +84,17 @@ export default function Home() {
     }
   };
 
+  const latitude = 'Latitude: ' + (userCoordinates? userCoordinates[0] : 'unavailable');
+  const longitude = 'Longitude: ' + (userCoordinates? userCoordinates[1] : 'unavailable');
+
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} onCurrentLocationClick={loadWeatherData} activeLocation={activeLocation} loading={loading} />
+      <CitiesBlock currentLocation={currentLocation || '...'} onCityClick={loadWeatherDataByCity} onCurrentLocationClick={onCurrentLocationClick} activeLocation={activeLocation} loading={loading} />
       {loading && <LoadingSpinner />}
       {error && <p className="text-red-500">{error}</p>}
       {weather && !loading && <WeatherCard data={weather} />}
+      {weather && <p className="text-white text-3xl m 20">{latitude}</p>}
+      {weather && <p className="text-white text-3xl m 20">{longitude}</p>}
     </div>
   );
 };
