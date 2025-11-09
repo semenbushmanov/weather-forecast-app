@@ -20,7 +20,16 @@ export default function CitiesBlock({ currentLocation, activeLocation, onCurrent
     if (cleanedInput) {
       addCity(cleanedInput);
       setInput('');
+      onCityClick(cleanedInput);
     }
+  };
+
+  const handleCityDeleteClick = (city: string) => {
+    deleteCity(city);
+
+    if (city === activeLocation) {
+      onCurrentLocationClick(27.34, 35.87);
+    };
   };
 
   return (
@@ -37,7 +46,7 @@ export default function CitiesBlock({ currentLocation, activeLocation, onCurrent
           <div key={city} className="grid grid-cols-2 gap-2 px-0 sm:px-2 mb-4 items-center">
             <button disabled={loading} onClick={() => onCityClick(city)} className={`text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 ${activeLocation === city ? 'bg-slate-900 hover:bg-slate-800' : 'bg-blue-900 hover:bg-blue-800' } rounded-2xl p-2 cursor-pointer`}>{city}</button>
             <div className="flex justify-end">
-              <button disabled={loading} onClick={() => deleteCity(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-sky-900 hover:bg-sky-800 rounded-2xl py-2 px-4 cursor-pointer">Delete</button>
+              <button disabled={loading} onClick={() => handleCityDeleteClick(city)} className="text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-sky-900 hover:bg-sky-800 rounded-2xl py-2 px-4 cursor-pointer">Delete</button>
             </div>
           </div>
         );
