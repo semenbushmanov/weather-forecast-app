@@ -10,20 +10,20 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function loadWeatherData(lat: number, lon: number) {
-      try {
-        setLoading(true);
-        setError(null);
-        const weather = await getMockWeatherByCoordinates(lat, lon);
-        setWeather(weather);
-      } catch (err) {
-        setError(`Failed to load weather data: ${String(err)}`);
-      } finally {
-        setLoading(false);
-      }
-    };
+  async function loadWeatherData(lat: number, lon: number) {
+    try {
+      setLoading(true);
+      setError(null);
+      const weather = await getMockWeatherByCoordinates(lat, lon);
+      setWeather(weather);
+    } catch (err) {
+      setError(`Failed to load weather data: ${String(err)}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadWeatherData(27.34, 35.87);  
   }, []);
 
@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 w-full rounded-2xl mt-6">        
-      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} activeLocation={activeLocation} />
+      <CitiesBlock currentLocation="Sevastopol" onCityClick={loadWeatherDataByCity} onCurrentLocationClick={loadWeatherData} activeLocation={activeLocation} />
       {loading && <LoadingSpinner />}
       {error && <p className="text-red-500">{error}</p>}
       {weather && !loading && <WeatherCard data={weather} />}
