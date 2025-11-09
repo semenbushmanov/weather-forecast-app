@@ -33,5 +33,5 @@ export default function Home() {
       {error && <p>{error}</p>}
       {weather && <WeatherCard data={weather} />}
     </div>
-  )
-}
+  );
+};

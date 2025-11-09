@@ -3,7 +3,7 @@ import { useSettingsStorage } from "../storage/useSettingsStorage";
 
 interface WeatherCardProps {
   data: WeatherData;
-}
+};
 
 export default function WeatherCard({ data }: WeatherCardProps) {
   const { settings } = useSettingsStorage();
@@ -31,5 +31,5 @@ export default function WeatherCard({ data }: WeatherCardProps) {
         {settings['Feels'] && (<p className="text-sm sm:text-lg md:text-2xl text-green-700 mb-2">Feels like: {data.main.feels_like}°C</p>)}
       </div>
     </div>
-  )
-}
+  );
+};

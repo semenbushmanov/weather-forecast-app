@@ -17,7 +17,7 @@ export default function CitiesBlock({ currentLocation }: CityBlockProps) {
       addCity(cleanedInput);
       setInput('');
     }
-  }
+  };
 
   return (
     <div className="flex flex-col p-4 sm:p-6 bg-gray-700 rounded-2xl border-2 border-violet-900">
@@ -49,5 +49,5 @@ export default function CitiesBlock({ currentLocation }: CityBlockProps) {
         <button type="submit" className="mt-2 text-white text-sm sm:text-lg md:text-2xl transition-all duration-300 bg-gray-800 hover:bg-blue-900 rounded-2xl p-2 cursor-pointer">Add city</button>
       </form>
     </div>
-  )
-}
+  );
+};

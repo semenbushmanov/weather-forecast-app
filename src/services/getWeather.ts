@@ -21,7 +21,7 @@ export interface WeatherData {
     lat: number
     lon: number
   };
-}
+};
 
 export function getMockWeatherByCoordinates(lat: number, lon: number): Promise<WeatherData> {
   return new Promise((resolve, reject) => {
@@ -61,4 +61,4 @@ export function getMockWeatherByCoordinates(lat: number, lon: number): Promise<W
       }
     }, 1000);
   });
-}
+};

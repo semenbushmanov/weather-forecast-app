@@ -7,7 +7,7 @@ export interface WeatherSettings {
   Pressure: boolean;
   Wind: boolean;
   Feels: boolean;
-}
+};
 
 const WEATHER_OPTIONS = ['Sunrise', 'Sunset', 'Humidity', 'Pressure', 'Wind', 'Feels'] as const satisfies readonly (keyof WeatherSettings)[];
 
@@ -39,5 +39,5 @@ export default function Settings() {
         </div>
       </div>
     </div>      
-  )
-}
+  );
+};
